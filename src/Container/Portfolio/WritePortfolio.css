@@ -1,0 +1,29 @@
+.editorWrapper{
+    width: 900px;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+#inputPortfolioTitle{
+    width: 900px;
+    font-size: 24px;
+    margin-bottom: 30px;
+    border: none;
+    outline: none;
+
+    border-bottom: 1px solid lightgray;
+    padding: 6px 0 6px 10px;
+}
+
+.ck.ck-editor__editable:not(.ck-editor__nested-editable) {
+    min-height: 800px;
+    margin-bottom: 20px;
+    line-height: 0.3rem;
+  }
+
+  .additionalInput{
+    width: 100%;
+    height: 300px;
+    background-color: #333;
+    color: white;
+  }

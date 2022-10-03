@@ -1,0 +1,8 @@
+.PaginationBar{
+    list-style-type: none;
+}
+
+.PaginationBar li{
+    list-style-type: none;
+    float: left;
+}

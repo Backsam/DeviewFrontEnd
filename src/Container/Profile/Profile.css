@@ -1,0 +1,76 @@
+.ProfileContainer{
+    width: 1200px;
+    margin: 0 auto;
+    background-color: white;
+    margin-top: 30px;
+}
+
+
+.ProfileWrapper{
+    width: 400px;
+    height: 900px;
+    float: left;
+    padding-right: 20px;
+    border-right: 1px solid lightgray
+}
+
+.ProfileImgWarpper{
+    position: relative;
+    width: 400px;
+    height: 200px;
+}
+
+.ProfileImgWarpper > img{
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border-radius: 50%;
+    border : 1.5px solid black;
+    background-color: white;
+}
+
+.NameAndIntro{
+    border-bottom: 1px solid #888;
+    padding-right: 5px;
+    padding-bottom: 15px;
+    margin-top: 20px;
+
+}
+
+.UserDetail dt:first-child {
+    margin-top: 30px;
+}
+
+.UserDetail dd{
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 40px;
+}
+
+
+.Portfolios{
+    width: 800px;
+    height: 1000px;
+    float: left;
+    display:flex;
+    justify-content: left;
+    flex-direction: row;
+    flex-wrap : wrap;
+}
+
+.ViewMoreWrapper{
+    margin-bottom: 7px;
+    margin-right: 45px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+.UserPost{
+    width: 100%;
+    height: 500px;
+    background-color: green;
+    float: left;
+}

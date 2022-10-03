@@ -1,0 +1,33 @@
+.DropdownComponent{
+    position: relative;
+    z-index: 10;
+
+}
+
+.DropdownComponent > ul{
+    position: absolute;
+    width: 120px;
+    max-height: 200px;
+    top: 0px;
+    padding: 2px;
+    margin: 0;
+    list-style-type: none;
+    border: 1px solid lightgray;
+    background-color: white;
+    overflow-y: scroll;
+}
+
+.DropdownComponent li{
+    margin-top: 5px;
+    list-style-type: none;
+}
+
+.DropdownComponent li:first-child{
+    margin-top: 10px;
+}
+
+
+.DropdownComponent li:last-child{
+    margin-bottom: 10px;
+}
+

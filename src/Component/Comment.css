@@ -1,0 +1,15 @@
+.CommentWarpper{
+    position: relative;
+    background-color: white;
+}
+
+.CommentDetail{
+    font-size: 13px;
+}
+
+.CommentInfo{
+    position: absolute;
+    font-size: 12px;
+    bottom: 0;
+    color: gray;
+}

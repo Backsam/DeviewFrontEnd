@@ -1,0 +1,119 @@
+.MainContainer{
+    background-color: white;
+    width: 100%;
+  }
+
+.LabelWrapper{
+    width: 1200px;
+    margin: 0 auto;
+    margin-top: 30px;
+    padding-left: 1rem;
+}
+
+.LabelWrapper label{
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.CarouselContainer{
+    width: 1200px;
+    height: 310px;
+    background-color: white;
+    position: relative;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.Carousel{
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+}
+
+.Carousel li:not(:last-child){
+    margin-right: 30px;
+}
+
+.CarouselPrev{
+    position: absolute;
+    width: 55px;
+    height : 100px;
+    background-color: rgba(150, 150, 150, 0.5);
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 50px;
+    font-weight: bold;
+    left : 0%;
+    top : 50%;
+    transform: translate(-0%, -50%);
+    z-index: 1;
+}
+
+.CarouselNext{
+    position: absolute;
+    width: 55px;
+    height : 100px;
+    background-color: rgba(150, 150, 150, 0.5);
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 50px;
+    font-weight: bold;
+    top : 50%;
+    right: 0%;
+    transform: translate(-0%, -50%);
+    z-index: 1;
+}
+
+
+
+.orderContainer{
+    display: table;
+    background-color: white;
+    width: 1200px;
+    height: 55px;
+    margin-left: auto;
+    margin-right: auto;  
+}
+
+.orderList{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.orderContainer ul {
+    list-style:none;
+    margin:0;
+    padding:0;
+  }
+  
+  .orderContainer li {
+    margin: 0 0 0 0;
+    padding: 0 5px 0 5px;
+    border : 0;
+    float: left;
+  }
+
+.orderList button{
+    margin: 0.1rem 1rem;
+    padding: 0.7rem 1.5rem;
+}
+
+.orderList button:hover{
+    color: #0af;
+}
+
+.is-active{
+    color: #0af;
+    text-decoration: underline;
+}
+
+.folioContainer{
+    background-color: white;
+    width: 1200px;
+    height: 100%;
+    margin : 0 auto;
+    padding-left: 14px;
+    display:flex;
+    justify-content: left;
+    flex-direction: row;
+    flex-wrap : wrap;
+}
+
