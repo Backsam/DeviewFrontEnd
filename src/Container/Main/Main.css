@@ -25,11 +25,15 @@
 }
 
 .Carousel{
-    display: flex;
-    flex-direction: row;
-    position: absolute;
+    position: relative;
+    padding: 0;
+    padding-left: 30px;
 }
 
+.Carousel li{
+    float: left;
+    padding: 0;
+}
 .Carousel li:not(:last-child){
     margin-right: 30px;
 }

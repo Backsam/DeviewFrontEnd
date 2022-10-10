@@ -1,8 +1,9 @@
 import Dropdown from "./Dropdown";
-import styled from 'styled-components';
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import Modal from "./Modal/Modal.js"
+import LoginForm from "./LoginForm/LoginForm";
+import SignUpForm from "./LoginForm/SignUpForm";
 import "./TestNavBar.css";
 
 
@@ -11,6 +12,7 @@ function TestNavBar() {
 
     const [searchKeyword, setSearchKeyword] = useState();
     const [userMenuVisibility, setUserMenuVisibility] = useState(false);
+    const [modalTapStatus, setModalStatus] = useState(0);
 
     //페이지 이동을 위한 변수선언
     let navigate = useNavigate();
@@ -43,7 +45,7 @@ function TestNavBar() {
 
     //Search 버튼을 눌렀을 경우 발생하는 이벤트 
     function handleOnClick(e) {
-        if (searchKeyword == "") {
+        if (searchKeyword === "") {
             navigate(`/search`)
             setUserMenuVisibility(false)
             setSearchKeyword("")
@@ -73,12 +75,26 @@ function TestNavBar() {
       setModalOpen(false);
       document.body.style.overflow = "unset"
     };
+
+    const modalTapList = {
+        0:<LoginForm />,
+        1:<SignUpForm />
+    };
+
+    function changeForm(num){
+        setModalStatus(num);
+    }
+
+
+
     return (
 
 
         <>
             <nav className="Navbar">
-                <h2>Protofolio</h2>
+                <div className="logoWrapper">
+                    <h2>DeView</h2>
+                </div>
                 <div className="NavMenus">
                     <ul>
                         <li>
@@ -97,7 +113,7 @@ function TestNavBar() {
 
                 <div ref={dd} className="NavUsersInfo">
                     <button ref={dd} onClick={e => setUserMenuVisibility(!userMenuVisibility)}>
-                        <img src="img/letsPlay-icon.png"></img>
+                        <img src={process.env.PUBLIC_URL + '/img/letsPlay-icon.png'}  alt="userIcon"></img>
                     </button>
                     <Dropdown visivility={userMenuVisibility} userMenu>
                         <ul>
@@ -115,12 +131,12 @@ function TestNavBar() {
                 </div>
 
                 <div className="NavSearchWrapper">
-                    <img src="img/search.svg"></img>
+                    <img src={process.env.PUBLIC_URL + '/img/search.svg'} alt=""></img>
                     <input
                         type="text"
                         id="NavSearch"
                         placeholder="Search"
-                        value={searchKeyword}
+                        value={searchKeyword  || ``}
                         onChange={e => setSearchKeyword(e.target.value)}
                         onKeyDown={handleOnKeyPress}
                     ></input>
@@ -128,9 +144,16 @@ function TestNavBar() {
                 </div>
 
             <>
-            <Modal open={modalOpen} close={closeModal} header="Login Form">
-                id : <input type="text"></input><p> </p>
-                pw : <input type="password"></input>
+            <Modal open={modalOpen} close={closeModal} header="로그인">
+            <div className="orderContainer">
+                <div className="orderList">
+                    <ul>
+                        <li><button className={modalTapStatus===0 ? "is-active" : ""} type="button" onClick={() =>changeForm(0)}>로그인</button></li>
+                        <li><button className={modalTapStatus===1 ? "is-active" : ""} type="button" onClick={() =>changeForm(1)}>회원가입</button></li>
+                    </ul>
+                </div>
+            </div>
+                {modalTapList[modalTapStatus]}
             </Modal>
             </>
             </nav>

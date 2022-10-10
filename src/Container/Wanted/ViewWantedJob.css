@@ -1,0 +1,153 @@
+.ContentContainer{
+    background-color: white;
+    width: 900px;
+    margin: 0 auto;
+    padding-top: 50px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 30px;
+  }
+
+  .tagWrapper{
+    width: 100%;
+    margin-top: 17px;
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+  }
+
+  .ContentInfo{
+    margin-top: 17px;
+    padding-left: 2px;
+  }
+
+  .ContentInfo > *:not(:last-child){
+    margin-right: 15px;
+    padding-right: 15px;
+    font-size: 15px;
+    text-align: center;
+    border-right: 1px solid black;
+  }
+
+  .ConditionInfoWrapper{
+    width: 100%;
+    height: 300px;
+    margin-top: 30px;
+    background-color: #222;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: white;
+  }
+
+  .recruitmentConditionWrapper{
+    width: 400px;
+    height: 270px;
+    background-color: #333;
+    float: left;
+  }
+
+  .workConditionWrapper{
+    width: 400px;
+    height: 270px;
+    background-color: #444;
+    float: left;
+  }
+
+  .ConditionInfoWrapper table{
+    width: 100%;
+    height: 260px;
+    padding: 0;
+  }
+
+  .ConditionInfoWrapper table th{
+    padding: 0;
+    padding-bottom: 3px;
+    border-bottom: 1px solid white;
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  .ConditionInfoWrapper table tr{
+    padding: 1px 2px 2px 3px;
+    border-bottom: 1px solid white;
+  }
+
+  .ConditionInfoWrapper table td{
+    margin: 0;
+    padding: 1px 2px 2px 3px;
+    vertical-align: middle;
+    font-size: 13px;
+  }
+
+
+  .ConditionInfoWrapper table td:first-child{
+    width: 100px;
+  }
+
+
+
+
+  .Content{
+    margin-top: 40px;
+    margin-bottom: 40px;
+    width: 100%;
+  }
+
+  .AutorInfo{
+    width: 100%;
+    height: 100px;
+    margin-top: px;
+    background-color: #888;
+  }
+
+  .AutorImgWrapper{
+    position: relative;
+    width: 100px;
+    height: 100%;
+    background-color: white;
+    float: left;
+  }
+
+  .AutorImgWrapper > img {
+    width: 100px;
+    height: 100px;
+    position:absolute; 
+    top:0; 
+    left:0; 
+    bottom:0; 
+    right:0; 
+    margin: auto;
+    border-radius: 50%;
+  }
+
+  .AutorProfile{
+    width: 790px;
+    height: 100%;
+    background-color: white;
+    float: left;
+    padding-left: 10px;
+  }
+
+  .AutorLinks{
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .AutorLinks > button{
+    margin-left: 25px;
+  }
+
+  .AutorLinks img{
+    width: 50px;
+    height: 50px;
+  }
+
+
+  .AutorProfile > span:not(:last-child){
+    margin-right: 15px;
+    padding-right: 15px;
+    font-size: 15px;
+    text-align: center;
+    border-right: 1px solid #888;
+  }

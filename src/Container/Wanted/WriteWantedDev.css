@@ -17,7 +17,7 @@
 
 #inputPortfolioSummary{
   width: 900px;
-  height: 100px;
+  height: 200px;
   font-size: 17px;
   margin-bottom: 30px;
   border: none;
@@ -29,7 +29,7 @@
 }
 
 .ck.ck-editor__editable:not(.ck-editor__nested-editable) {
-    height: 800px;
+    min-height: 800px;
     margin-bottom: 20px;
     line-height: 0.3rem;
   }

@@ -12,7 +12,7 @@ function Main() {
         "title": "portfolio",
         "content": "포트폴리오 목록",
         "portfolios": [
-            {"idx" : 1, "portfolioTitle": "프로젝트1 ", "summary": "프로젝트 1에 대한 설명", "writer": "개발자1", "views": 1, "like": 6 },
+            {"idx" : 1, "portfolioTitle": "Editor로 작성한 포트폴리오 ", "summary": "프로젝트 1에 대한 설명", "writer": "개발자1", "views": 1, "like": 6 },
             {"idx" : 2, "portfolioTitle": "프로젝트2 ", "summary": "프로젝트 2에 대한 설명", "writer": "개발자2", "views": 2, "like": 5 },
             {"idx" : 3, "portfolioTitle": "프로젝트3 ", "summary": "프로젝트 3에 대한 설명", "writer": "개발자3", "views": 3, "like": 4 },
             {"idx" : 4, "portfolioTitle": "프로젝트4 ", "summary": "프로젝트 4에 대한 설명", "writer": "개발자4", "views": 4, "like": 3 },
@@ -131,11 +131,11 @@ function Main() {
                 </div>
             </div>
             <div className="folioContainer">
-                <Portfolio title="제목" summary="내용"></Portfolio>
+                <Link to= "/testView"><Portfolio title="PDF를 업로드한 포트폴리오" summary="내용"></Portfolio></Link>
                 {
                     data.map( (pf, idx) => (
                     <Link to ="/portfolioView" style={{ color:"black", textDecoration: "none" }}>
-                        <Portfolio title={pf.portfolioTitle} summary={pf.summary}></Portfolio>
+                        <Portfolio title={pf.portfolioTitle} summary={pf.summary} img=""></Portfolio>
                     </Link>
                     ))
                 }

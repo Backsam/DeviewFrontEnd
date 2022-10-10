@@ -38,7 +38,7 @@ function Search(props) {
         <div className="SearchContainer">
             <div className="SearchWrapper">
                 <div className="iconWrapper">
-                    <img id="SearchIcon" src={process.env.PUBLIC_URL + '../img/search.svg'}></img>
+                    <img id="SearchIcon" src={process.env.PUBLIC_URL + '/img/search.svg'}></img>
                 </div>
                 <input 
                     id="Search" 

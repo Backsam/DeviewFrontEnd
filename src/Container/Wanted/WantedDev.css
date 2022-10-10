@@ -1,0 +1,34 @@
+.DevListWrapper{
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.RisingDevWrapper{
+    width: 100%;
+    height: 300px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.RisingDevList{
+    width: 90%;
+    height: 270px;
+    position: absolute;
+    top : 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.DevList{
+    width: 100%;
+    display:flex;
+    margin-top: 50px;
+    justify-content: space-around;
+    flex-direction: row;
+    flex-wrap : wrap;
+}

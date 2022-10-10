@@ -1,15 +1,20 @@
 import "./Tag.css"
+import styled from "styled-components";
 
 
 
 function Tag(props) {
 
     return (
-        <div className="tag">
+        <TagWrap className="tag" fontSize={props.fontSize}>
             <span>{props.content}</span>
-        </div>
+        </TagWrap>
     )
 }
 
 export default Tag;
 
+
+const TagWrap = styled.div`
+    font-size : ${(props) => props.fontSize || "15px"};
+`;

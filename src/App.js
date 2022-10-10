@@ -8,7 +8,19 @@ import WritePortfolio from './Container/Portfolio/WritePortfollio';
 import Profile from "./Container/Profile/Profile.js";
 import Search from './Container/Search.js';
 
+import WantedDev from './Container/Wanted/WantedDev';
+import WantedJob from './Container/Wanted/WantedJob';
+import ViewWantedJob from './Container/Wanted/ViewWantedJob';
+
+
+import Message from './Container/Message/Message';
+
 import NotFound from './Container/NotFound/NotFound';
+
+
+import TestVeiw from './Container/Portfolio/TestVeiw'
+
+
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 
@@ -31,8 +43,15 @@ function App() {
         <Route path="/search/" element={<Search></Search>}></Route>
         <Route path="/search/?query=keyword" element={<Search></Search>}></Route>
 
+        <Route path="/Wanted/" element={<WantedDev/>}></Route>
+        <Route path="/Wanted/dev" element={<WantedDev/>}></Route>
+        <Route path="/Wanted/job" element={<WantedJob/>}></Route>
+        <Route path="/Wanted/job/view" element={<ViewWantedJob/>}></Route>
+
         <Route path="/profile" element={<Profile></Profile>}></Route>
         
+        <Route path="/Message" element={<Message/>}></Route>
+        <Route path="/TestView" element={<TestVeiw/>}></Route>
 
         <Route path="*" element={<NotFound></NotFound>}></Route>
       </Routes>
