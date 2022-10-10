@@ -6,6 +6,7 @@
     padding-left: 5px;
     padding-right: 5px;
     padding-bottom: 30px;
+    position: relative;
   }
 
   .tagWrapper{
@@ -124,4 +125,44 @@
   }
   .Comments li:last-child{
     border-bottom: 1px solid #888;
+  }
+
+  .floatingBtns{
+    width: 100px;
+    position: fixed;
+    right: 70px;
+    bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+  }
+
+  .floatingBtns > div{
+    position: relative;
+    width: 75px;
+    height: 75px; 
+    border: 1px solid #222; 
+    margin: 0 auto;
+    border-radius: 50%;
+    margin-top: 10px;
+  }
+
+  .floatingBtns > div img {
+    width: 45px;
+    height: 45px;
+    position:absolute; 
+    top:0; 
+    left:0; 
+    bottom:8px; 
+    right:0; 
+    margin: auto;
+  }
+
+  .floatingBtns > div p {
+    width: 45px;
+    height: 45px;
+    margin: 0 auto;
+    margin-top: 27px;
+    font-size: 12 px;
+    text-align: center;
   }
