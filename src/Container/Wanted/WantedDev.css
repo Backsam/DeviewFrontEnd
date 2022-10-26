@@ -27,7 +27,7 @@
 .DevList{
     width: 100%;
     display:flex;
-    margin-top: 50px;
+    margin-top: 15px;
     justify-content: space-around;
     flex-direction: row;
     flex-wrap : wrap;

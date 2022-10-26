@@ -2,6 +2,7 @@ import "./PortfolioView.css"
 import Tag from "../../Component/Tag.js";
 import Comment from "../../Component/Comment.js";
 import PdfViewer from "../../Component/PdfViewer/PdfViewer";
+import MessageMoadalbtn from "../../Component/Message/MessageModalBtn";
 
 function PortfolioView(props) {
 
@@ -89,7 +90,7 @@ function PortfolioView(props) {
 
             <div className="floatingBtns">
                 <div>
-                    <button><img src={process.env.PUBLIC_URL + "/img/envelope-plus-fill.svg"}></img></button>           
+                   <MessageMoadalbtn></MessageMoadalbtn>
                 </div>
                 <div>
                     <button><img src={process.env.PUBLIC_URL + "/img/Heart-icon.png"}></img></button>           

@@ -5,6 +5,8 @@ import Modal from "./Modal/Modal.js"
 import LoginForm from "./LoginForm/LoginForm";
 import SignUpForm from "./LoginForm/SignUpForm";
 import "./TestNavBar.css";
+import axios from "axios";
+import { signout } from "../Hook/ApiService";
 
 
 function TestNavBar() {
@@ -13,10 +15,10 @@ function TestNavBar() {
     const [searchKeyword, setSearchKeyword] = useState();
     const [userMenuVisibility, setUserMenuVisibility] = useState(false);
     const [modalTapStatus, setModalStatus] = useState(0);
+    const [userStatus, setUserStatus] = useState(false);
 
     //페이지 이동을 위한 변수선언
     let navigate = useNavigate();
-
 
     //유저 메뉴 드롭다운 참조
     const dd = useRef();
@@ -62,34 +64,41 @@ function TestNavBar() {
             handleOnClick();
         }
     }
-        
+
+    useEffect(() => {
+        if (sessionStorage.getItem("ACCESS_TOKEN") && sessionStorage.getItem("ACCESS_TOKEN") !== null) {
+            setUserStatus(true);
+        } else {
+            setUserStatus(false);
+        }
+    }, [userStatus])
+
+
 
     //로그인 모달 함수
     const [modalOpen, setModalOpen] = useState(false);
 
     const openModal = () => {
-      setModalOpen(true);
-      document.body.style.overflow = "hidden";
+        setModalOpen(true);
+        document.body.style.overflow = "hidden";
     };
     const closeModal = () => {
-      setModalOpen(false);
-      document.body.style.overflow = "unset"
+        setModalOpen(false);
+        document.body.style.overflow = "unset"
     };
 
     const modalTapList = {
-        0:<LoginForm />,
-        1:<SignUpForm />
+        0: <LoginForm />,
+        1: <SignUpForm />
     };
 
-    function changeForm(num){
+    function changeForm(num) {
         setModalStatus(num);
     }
 
 
 
     return (
-
-
         <>
             <nav className="Navbar">
                 <div className="logoWrapper">
@@ -112,23 +121,25 @@ function TestNavBar() {
 
 
                 <div ref={dd} className="NavUsersInfo">
-                    <button ref={dd} onClick={e => setUserMenuVisibility(!userMenuVisibility)}>
-                        <img src={process.env.PUBLIC_URL + '/img/letsPlay-icon.png'}  alt="userIcon"></img>
-                    </button>
-                    <Dropdown visivility={userMenuVisibility} userMenu>
-                        <ul>
-                            <div>작성자</div>
-                            <Link to="/profile"><li>내 프로필</li></Link>
-                            <Link to="/WritePortfolio"><li>포트폴리오 작성</li></Link>
-                            <Link to="/Message"><li>쪽지함</li></Link>
-                            <Link to="/logout"><li>로그아웃</li></Link>
-                        </ul>
-                    </Dropdown>
+                    {
+                        userStatus ? <> <button ref={dd} onClick={e => setUserMenuVisibility(!userMenuVisibility)}>
+                            <img src={process.env.PUBLIC_URL + '/img/letsPlay-icon.png'} alt="userIcon"></img>
+                        </button>
+                            <Dropdown visivility={userMenuVisibility} userMenu>
+                                <ul>
+                                    <div>작성자</div>
+                                    <Link to="/profile"><li>내 프로필</li></Link>
+                                    <Link to="/portfolio/write"><li>포트폴리오 작성</li></Link>
+                                    <Link to="/Wanted/job/Write"><li>구인 공고 작성</li></Link>
+                                    <Link to="/Message"><li>쪽지함</li></Link>
+                                    <button onClick={signout}><li>로그아웃</li></button>
+                                </ul>
+                            </Dropdown></> :
+                            <button onClick={openModal}>로그인</button>
+                    }
                 </div>
 
-                <div className="test">
-                    <button onClick={openModal}>로그인</button>
-                </div>
+
 
                 <div className="NavSearchWrapper">
                     <img src={process.env.PUBLIC_URL + '/img/search.svg'} alt=""></img>
@@ -136,26 +147,26 @@ function TestNavBar() {
                         type="text"
                         id="NavSearch"
                         placeholder="Search"
-                        value={searchKeyword  || ``}
+                        value={searchKeyword || ``}
                         onChange={e => setSearchKeyword(e.target.value)}
                         onKeyDown={handleOnKeyPress}
                     ></input>
                     <button className="NavSearchBtn" onClick={handleOnClick}>Search</button>
                 </div>
 
-            <>
-            <Modal open={modalOpen} close={closeModal} header="로그인">
-            <div className="orderContainer">
-                <div className="orderList">
-                    <ul>
-                        <li><button className={modalTapStatus===0 ? "is-active" : ""} type="button" onClick={() =>changeForm(0)}>로그인</button></li>
-                        <li><button className={modalTapStatus===1 ? "is-active" : ""} type="button" onClick={() =>changeForm(1)}>회원가입</button></li>
-                    </ul>
-                </div>
-            </div>
-                {modalTapList[modalTapStatus]}
-            </Modal>
-            </>
+                <>
+                    <Modal open={modalOpen} close={closeModal} header="로그인">
+                        <div className="orderContainer">
+                            <div className="orderList">
+                                <ul>
+                                    <li><button className={modalTapStatus === 0 ? "is-active" : ""} type="button" onClick={() => changeForm(0)}>로그인</button></li>
+                                    <li><button className={modalTapStatus === 1 ? "is-active" : ""} type="button" onClick={() => changeForm(1)}>회원가입</button></li>
+                                </ul>
+                            </div>
+                        </div>
+                        {modalTapList[modalTapStatus]}
+                    </Modal>
+                </>
             </nav>
         </>
     )

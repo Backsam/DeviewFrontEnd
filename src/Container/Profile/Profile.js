@@ -3,11 +3,24 @@ import Portfolio from "../../Component/Portfolio";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import InputTag from "../../Component/Editor/InputTag";
+import Modal from "../../Component/Modal/Modal";
+import MessageModal from "../../Component/Message/MessageMoadal";
 
 
 function Profile(props) {
 
     const [status, setStatus] = useState(false);
+
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const openModal = () => {
+      setModalOpen(true);
+      document.body.style.overflow = "hidden";
+    };
+    const closeModal = () => {
+      setModalOpen(false);
+      document.body.style.overflow = "unset"
+    };
 
 
     return (
@@ -19,8 +32,9 @@ function Profile(props) {
                 <div className="NameAndIntro">
                     <h2>작성자</h2>
                     <div className="btnWrapper">
-                        <button className="LetterBtn" onClick={() => setStatus(!status)}><img src={process.env.PUBLIC_URL + '/img/envelope-plus-fill.svg'}></img></button>
-                        <button className="LetterBtn"><img src={process.env.PUBLIC_URL + '/img/pencil-fill.svg'}></img></button>
+                        <button onClick={openModal}><img src={process.env.PUBLIC_URL + '/img/envelope-plus-fill.svg'}></img></button>
+                        <Link to="/message"><img src={process.env.PUBLIC_URL + '/img/envelope-plus-fill.svg'}></img></Link>
+                        <button className="LetterBtn" onClick={() => setStatus(!status)}><img src={process.env.PUBLIC_URL + '/img/pencil-fill.svg'}></img></button>
                     </div>
                 </div>
                 <div className="UserDetail">
@@ -40,6 +54,10 @@ function Profile(props) {
                 </div>
             </div>
             <div className="UserPost">자유 게시판 글 목록</div>
+
+            <Modal open={modalOpen} close={closeModal} header="Message" width="900px">
+                <MessageModal></MessageModal>
+            </Modal>
         </div>
     )
 }
@@ -85,6 +103,8 @@ function ProfileDetailView(props) {
                     <dt>웹사이트</dt>
                     <dd><input type="text" style={{width:"100%"}}></input>
                     </dd>
+                    <dt>기타설정</dt>
+                    <input type="checkbox"></input> <span>구직중</span><p></p>
                 </dl>
                 <button className="test">Submit </button>
                 <button className="test">cancle </button>

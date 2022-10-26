@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 
-const InputTag = () => {
+const InputTag = (props) => {
   const [tagItem, setTagItem] = useState('')
   const [tagList, setTagList] = useState([])
 
@@ -16,6 +16,7 @@ const InputTag = () => {
     updatedTagList.push(tagItem)
     setTagList(updatedTagList)
     setTagItem('')
+    props.getTag(updatedTagList)
   }
 
   const deleteTagItem = e => {

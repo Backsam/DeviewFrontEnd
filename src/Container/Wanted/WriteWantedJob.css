@@ -1,0 +1,26 @@
+.WriteWantedContainer{
+    width: 900px;
+    height: 2000px;
+    margin: 0 auto;
+}
+
+.InputWrapper{
+    width: 100%;
+    text-align: right;
+}
+
+.InputWrapper textarea{
+    width: 100%;
+}
+
+.InputWrapper button{
+    background-color: #444;
+    padding: 5px 15px 5px 15px;
+    font-size: 14px;
+    color: white;
+}
+
+#submit{
+   float: right;
+   margin-top: 10px;
+}

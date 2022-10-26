@@ -1,0 +1,249 @@
+*{
+	box-sizing:border-box;
+}
+
+#ModalMessageForm{
+	width:100%;
+	height:600px;
+	background:white;
+	margin:0 auto;
+    margin-top: 30px;
+	font-size:0;
+	border-radius:5px;
+	overflow:hidden;
+}
+#ModalMessageForm aside{
+	width:300px;
+	height:720px;
+	background-color:#3b3e49;
+	display:inline-block;
+	font-size:15px;
+	vertical-align:top;
+}
+#ModalMessageForm main{
+	width:100%;
+	height:720px;
+	display:inline-block;
+	font-size:15px;
+	vertical-align:top;
+}
+
+#ModalMessageForm aside header{
+	padding:30px 20px;
+}
+#ModalMessageForm aside input{
+	width:100%;
+	height:50px;
+	line-height:50px;
+	padding:0 50px 0 20px;
+	background-color:#5e616a;
+	border:none;
+	border-radius:3px;
+	color:#fff;
+	background-image:url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1940306/ico_search.png);
+	background-repeat:no-repeat;
+	background-position:210px;
+	background-size:40px;
+}
+#ModalMessageForm aside input::placeholder{
+	color:#fff;
+}
+#ModalMessageForm aside ul{
+	padding-left:0;
+	margin:0;
+	list-style-type:none;
+	overflow-y:scroll;
+	height:610px;
+}
+#ModalMessageForm aside li{
+	padding:10px 0;
+}
+#ModalMessageForm aside li:hover{
+	background-color:#5e616a;
+}
+#ModalMessageForm h2,h3{
+	margin:0;
+}
+#ModalMessageForm aside li .ImgWrapper{
+    width: 55px;
+    height: 55px;
+    margin-left:20px;
+	margin-right:8px;
+    padding: 0;
+    position: relative;
+}
+#ModalMessageForm aside li img{
+    border-radius: 50%;
+    border: 2px solid #999;
+    width: 55px;
+    height: 55px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;;
+}
+#ModalMessageForm aside li div{
+	display:inline-block;
+	vertical-align:top;
+	margin-top:12px;
+}
+#ModalMessageForm aside li h2{
+	font-size:14px;
+	color:#fff;
+	font-weight:normal;
+	margin-bottom:5px;
+}
+#ModalMessageForm aside li h3{
+	font-size:12px;
+	color:#7e818a;
+	font-weight:normal;
+}
+
+#ModalMessageForm .status{
+	width:8px;
+	height:8px;
+	border-radius:50%;
+	display:inline-block;
+	margin-right:7px;
+}
+#ModalMessageForm .green{
+	background-color:#58b666;
+}
+#ModalMessageForm .orange{
+	background-color:#ff725d;
+}
+#ModalMessageForm .blue{
+	background-color:#6fbced;
+	margin-right:0;
+	margin-left:7px;
+}
+
+#ModalMessageForm main header{
+	height:110px;
+	padding:30px 20px 30px 40px;
+}
+#ModalMessageForm main header > *{
+	display:inline-block;
+	vertical-align:top;
+}
+#ModalMessageForm main header .ImgWrapper{
+    width: 55px;
+    height: 55px;
+    padding: 0;
+    position: relative;
+}
+
+#ModalMessageForm main header .ImgWrapper img{
+    border-radius: 50%;
+    border: 2px solid #999;
+    width: 55px;
+    height: 55px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+}
+#ModalMessageForm main header div :not(:first-child){
+	margin-left:10px;
+	margin-right:145px;
+}
+#ModalMessageForm main header h2{
+	font-size:16px;
+	margin-bottom:5px;
+    margin-left: 9px;
+}
+#ModalMessageForm main header h3{
+	font-size:14px;
+	font-weight:normal;
+	color:#7e818a;
+}
+
+#ModalMessageForm #chat{
+	padding-left:0;
+	margin:0;
+	list-style-type:none;
+	overflow-y:scroll;
+	height:450px;
+	border-top:2px solid #fff;
+	border-bottom:2px solid #fff;
+}
+#ModalMessageForm #chat li{
+	padding:10px 30px;
+}
+#ModalMessageForm #chat h2,#chat h3{
+	display:inline-block;
+	font-size:13px;
+	font-weight:normal;
+}
+#ModalMessageForm #chat h3{
+	color:#bbb;
+}
+#ModalMessageForm #chat .entete{
+	margin-bottom:5px;
+}
+#ModalMessageForm #chat .message{
+	padding:20px;
+	color:#fff;
+	line-height:25px;
+	max-width:60%;
+	display:inline-block;
+	text-align:left;
+	border-radius:5px;
+}
+#ModalMessageForm #chat .me{
+	text-align:right;
+}
+#ModalMessageForm #chat .you .message{
+	background-color:#777;
+}
+#ModalMessageForm #chat .me .message{
+	background-color:#777;
+}
+#ModalMessageForm #chat .triangle{
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 0 10px 10px 10px;
+}
+#ModalMessageForm #chat .you .triangle{
+		border-color: transparent transparent #58b666 transparent;
+		margin-left:15px;
+}
+#ModalMessageForm #chat .me .triangle{
+		border-color: transparent transparent #6fbced transparent;
+		margin-left:375px;
+}
+
+#ModalMessageForm main footer{
+	height:70px;
+}
+#ModalMessageForm main footer textarea{
+	resize:none;
+	border:none;
+	display:block;
+	width:100%;
+	height:80px;
+	border-radius:3px;
+	padding:20px;
+	font-size:13px;
+	margin-bottom:13px;
+}
+#ModalMessageForm main footer textarea::placeholder{
+	color:#ddd;
+}
+#ModalMessageForm main footer img{
+	height:30px;
+	cursor:pointer;
+}
+#ModalMessageForm main footer a{
+	text-decoration:none;
+	text-transform:uppercase;
+	font-weight:bold;
+	color:#6fbced;
+	vertical-align:top;
+	display:inline-block;
+}

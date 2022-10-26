@@ -12,7 +12,6 @@ function WantedJob(props){
                     <ul>
                         <li><Link to="/Wanted/dev">Developer</Link></li>
                         <li><Link to="/Wanted/job">job</Link></li>
-                        <li><Link to="/Wanted/Competition">Competition</Link></li>
                     </ul>
                 </div>
         </div>

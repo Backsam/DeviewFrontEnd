@@ -31,7 +31,6 @@
 .ck.ck-editor__editable:not(.ck-editor__nested-editable) {
     height: 800px;
     margin-bottom: 20px;
-    line-height: 0.3rem;
   }
 
   .additionalInput{
@@ -39,4 +38,12 @@
     height: 300px;
     background-color: #333;
     color: white;
+  }
+
+
+  .FileUploadContainer{
+    width: 100%;
+    height: 200px;
+    background-color: #888;
+    margin-top: 8px;
   }

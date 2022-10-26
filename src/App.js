@@ -3,13 +3,16 @@ import React from "react";
 import Header from "./Component/TestNavBar";
 import Footer from './Container/Footer';
 import Main from "./Container/Main/Main.js";
+
 import PortfolioView from "./Container/Portfolio/PortfolioView.js";
 import WritePortfolio from './Container/Portfolio/WritePortfollio';
+
 import Profile from "./Container/Profile/Profile.js";
 import Search from './Container/Search.js';
 
 import WantedDev from './Container/Wanted/WantedDev';
 import WantedJob from './Container/Wanted/WantedJob';
+import WriteWantedJob from './Container/Wanted/WriteWantedJob';
 import ViewWantedJob from './Container/Wanted/ViewWantedJob';
 
 
@@ -37,8 +40,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Main/>}></Route>
 
-        <Route path="/portfolioView" element={<PortfolioView/>}></Route>
-        <Route path="/writePortfolio" element={<WritePortfolio/>}></Route>
+        <Route path="/portfolio/:pfid" element={<PortfolioView/>}></Route>
+        <Route path="/portfolio/write" element={<WritePortfolio/>}></Route>
 
         <Route path="/search/" element={<Search></Search>}></Route>
         <Route path="/search/?query=keyword" element={<Search></Search>}></Route>
@@ -46,6 +49,7 @@ function App() {
         <Route path="/Wanted/" element={<WantedDev/>}></Route>
         <Route path="/Wanted/dev" element={<WantedDev/>}></Route>
         <Route path="/Wanted/job" element={<WantedJob/>}></Route>
+        <Route path="/Wanted/job/Write" element={<WriteWantedJob/>}></Route>
         <Route path="/Wanted/job/view" element={<ViewWantedJob/>}></Route>
 
         <Route path="/profile" element={<Profile></Profile>}></Route>

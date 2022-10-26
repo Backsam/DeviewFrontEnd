@@ -4,10 +4,10 @@ import Tag from "./Tag";
 
 
 function Portfolio(props) {
-
     const onErrorImg = (e) => {
         e.target.src = process.env.PUBLIC_URL + "/img/non-image.png";
     }
+
 
     return (
         <div className="portfolio_container">
@@ -22,15 +22,15 @@ function Portfolio(props) {
                     <p>{props.summary}</p>
                 </div>
                 <div className="Tags">
-                    <Tag content="react"  fontSize="12px"/>
-                    <Tag content="JavaScript" fontSize="12px"/>
-                    <Tag content="Html" fontSize="12px"/>
-                    <Tag content="CSS" fontSize="12px"/>
-                    
+                {
+                    props.tags?.split(",").map((tag, idx)=>(
+                        <Tag content={tag}/>
+                    ))
+                }
                 </div>
             </div>
             <div className="footer-box">
-                <p>작성자 좋아요 123 조회수 123</p>
+                <p>{props.userId} 좋아요 123 조회수 {props.view}</p>
             </div>
         </div> 
     )

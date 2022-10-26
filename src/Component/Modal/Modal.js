@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Modal.css'
 import styled from 'styled-components';
 
@@ -23,6 +23,8 @@ function Footer(props) {
     </footer>
   )
 }
+
+
 
 
 
