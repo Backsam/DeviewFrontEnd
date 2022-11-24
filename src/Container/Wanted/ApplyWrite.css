@@ -1,0 +1,80 @@
+.applyWriteContainer {
+    width: 900px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.applyInfoInput table {
+    width: 100%;
+    height: 260px;
+    padding: 0;
+}
+
+.applyInfoInput table th {
+    padding: 0;
+    border-bottom: 1px solid white;
+    vertical-align: middle;
+}
+
+.applyInfoInput table tr {
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid white;
+}
+
+.applyInfoInput table td {
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+    font-size: 18px;
+}
+
+.applyInfoInput table td>input {
+    width: 100%;
+}
+
+.applyInfoInput table td:first-child {
+    width: 100px;
+}
+
+
+.introduceMySelf {
+    width: 100%;
+    min-height: 400px;
+    padding-top: 30px;
+    padding-bottom: 35px;
+}
+
+.introduceMySelf p {
+    width: 100%;
+    font-size: 17px;
+    font-weight: bold;
+    margin: 10px 0px 0px 0px;
+}
+
+.introduceMySelf textarea {
+    width: 100%;
+    min-height: 150px;
+}
+
+.myPortfolio{
+    width: 100%;
+    min-height: 200px;
+    position: relative;
+}
+
+.myPortfolio > button{
+    position: absolute;
+    background-color: #444;
+    color: white;
+    top: 9px;
+    right: 0;
+    padding: 3px 10px 3px 10px;
+}
+
+.myPortfolioList {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 17px;
+    padding-bottom: 30px;
+}

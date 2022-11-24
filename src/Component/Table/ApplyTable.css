@@ -1,0 +1,84 @@
+table {
+  position: relative;
+  width: 100%;
+}
+table th {
+  text-align: left;
+  vertical-align: bottom;
+  border-bottom: 1px solid #ccc;
+  text-transform: uppercase;
+  font: 0.8em "Oswald", sans-serif;
+}
+table th, table td {
+  padding: 0.4em;
+}
+
+table.applyTable {
+  background: white;
+  color: #555;
+}
+table.applyTable > tbody tr.applyView {
+  font-family: "Droid Serif", serif;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid black;
+}
+table.applyTable > tbody tr.applyView td, table.applyTable tbody tr.applyView th {
+  cursor: pointer;
+}
+table.applyTable > tbody tr.applyView td:first-child,
+table.applyTable > tbody tr.applyView th:first-child {
+  position: relative;
+  padding-left: 20px;
+}
+table.applyTable > tbody tr.applyView td:first-child:before,
+table.applyTable > tbody tr.applyView th:first-child:before {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  width: 9px;
+  height: 16px;
+  margin-top: -8px;
+  font: 16px fontawesome;
+  transition: all 0.3s ease;
+}
+table.applyTable > tbody tr.applyView:nth-child(4n-1) {
+  background: #eee;
+}
+table.applyTable > tbody tr.applyView:hover {
+  background: #ddd;
+}
+
+.apply{
+  width: 450px;
+  height: 100px;
+}
+
+.applyImgWrapper{
+  position: relative;
+  width: 80px;
+  height: 100%;
+  float: left;
+
+}
+
+.applyImgWrapper > img {
+  width: 80px;
+  height: 80px;
+  position:absolute; 
+  top:0; 
+  left:0; 
+  bottom:0; 
+  right:0; 
+  margin: auto;
+  border: 2px solid black;
+  border-radius: 50%;
+}
+
+.applyProfile{
+  width: 370px;
+  height: 100%;
+  float: left;
+  padding-left: 10px;
+  display: flex;
+  align-items: center;
+}
