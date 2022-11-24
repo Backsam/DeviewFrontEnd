@@ -6,7 +6,7 @@ import LoginForm from "./LoginForm/LoginForm";
 import SignUpForm from "./LoginForm/SignUpForm";
 import "./TestNavBar.css";
 import axios from "axios";
-import { signout } from "../Hook/ApiService";
+import { getUserId, signout } from "../Hook/ApiService";
 
 
 function TestNavBar() {
@@ -52,7 +52,7 @@ function TestNavBar() {
             setUserMenuVisibility(false)
             setSearchKeyword("")
         } else {
-            navigate(`/search/?query=${searchKeyword}`)
+            navigate(`/search/?type=0&keyword=${searchKeyword}&tags=`)
             setUserMenuVisibility(false)
             setSearchKeyword("")
         }
@@ -110,12 +110,12 @@ function TestNavBar() {
                             <NavLink to="/">Home</NavLink>
                         </li>
                         <li>
-                            <NavLink to="/wanted">Wanted</NavLink>
+                            <NavLink to="/wanted/job">Wanted</NavLink>
                         </li>
 
-                        <li>
+                        {/* <li>
                             <NavLink to="/Community">Community</NavLink>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
 
@@ -127,15 +127,19 @@ function TestNavBar() {
                         </button>
                             <Dropdown visivility={userMenuVisibility} userMenu>
                                 <ul>
-                                    <div>작성자</div>
+                                    <div>{getUserId()}</div>
                                     <Link to="/profile"><li>내 프로필</li></Link>
-                                    <Link to="/portfolio/write"><li>포트폴리오 작성</li></Link>
-                                    <Link to="/Wanted/job/Write"><li>구인 공고 작성</li></Link>
-                                    <Link to="/Message"><li>쪽지함</li></Link>
-                                    <button onClick={signout}><li>로그아웃</li></button>
+                                    {
+                                        sessionStorage.getItem("Role") == "DEVELOPER" ?  
+                                        <Link to="/portfolio/write"><li>포트폴리오 작성</li></Link>
+                                        :<Link to="/Wanted/job/Write"><li>구인 공고 작성</li></Link>
+                                    }
+                                   
+                                    {/* <Link to="/Message"><li>쪽지함</li></Link> */}
+                                    <li> <button onClick={signout}>로그아웃</button></li>
                                 </ul>
                             </Dropdown></> :
-                            <button onClick={openModal}>로그인</button>
+                            <button className="loginBtn" onClick={openModal}>로그인</button>
                     }
                 </div>
 

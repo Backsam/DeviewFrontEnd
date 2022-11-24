@@ -16,5 +16,5 @@ export default Tag;
 
 
 const TagWrap = styled.div`
-    font-size : ${(props) => props.fontSize || "15px"};
+    font-size : ${(props) => props.fontSize || "12px"};
 `;

@@ -48,6 +48,7 @@
 	-webkit-line-clamp: 2;
 	margin-bottom: -17px;
 	overflow: hidden;
+	text-align: left;
 	text-overflow: ellipsis;
 	margin-bottom: 2px;
 }
@@ -55,17 +56,32 @@
 .portfolio_summary {
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
-	-webkit-line-clamp: 3;
+	-webkit-line-clamp: 2;
 	margin-bottom: 5px;
+	margin-top: 5px;
+	margin-bottom: 10px;
 	overflow: hidden;
+	text-align: left;
 	text-overflow: ellipsis;
 }
 
 .footer-box{
-	width: 100%;
-	height: 20px;
-	margin-top: 10px;
+    bottom: 2px;
+    width : 100%;
+    font-size: 13px;
+    display:flex;
+    justify-content: right;
+    padding-top  : 20px;
+    padding-right : 12px;
 }
+
+.footer-box span:not(:last-child){
+	margin-right: 12px;
+	padding-right: 12px;
+	text-align: center;
+	border-right: 1px solid #888;
+  }
+
 .leaderIcon-div{
 	display : flex;
 	flex-direction: row;

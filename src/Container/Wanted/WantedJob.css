@@ -1,9 +1,36 @@
-.JobList{
+.wantedJobBanner{
     width: 1200px;
+    height: 300px;
     margin: 0 auto;
+    position: relative;
+    padding-left: 20px;
+    padding-top: 70px;
+}
+
+.wantedJobBanner > img{
+    height: 200px;
+    position: absolute;
+    bottom: 0;
+    right: 30px;
+}
+
+.wantedJobBanner > h1{
+    font-weight: bold;
+}
+.wantedJobBanner > h5{
+    padding-left: 20px;
+}
+
+
+.JobList{
+    background-color: white;
+    width: 1200px;
+    height: 100%;
+    margin : 0 auto;
+    margin-top: 40px;
+    padding-left: 14px;
     display:flex;
-    margin-top: 50px;
-    justify-content: space-around;
+    justify-content: left;
     flex-direction: row;
     flex-wrap : wrap;
 }

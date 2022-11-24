@@ -45,11 +45,11 @@ function SignUp(props) {
           </div>
           <div className="form-radio">
             <div className="button-wrap">
-              <input className="hidden radio-label" id="yes-button" type="radio" name="role" value="developer" defaultChecked/>
+              <input className="hidden radio-label" id="yes-button" type="radio" name="role" value="DEVELOPER" defaultChecked/>
               <label className="button-label" htmlFor="yes-button">
                 <h1>Developer</h1>
               </label>
-              <input className="hidden radio-label" id="no-button" type="radio" name="role" value="company"/>
+              <input className="hidden radio-label" id="no-button" type="radio" name="role" value="COMPANY"/>
               <label className="button-label" htmlFor="no-button">
                 <h1>Company</h1>
               </label>

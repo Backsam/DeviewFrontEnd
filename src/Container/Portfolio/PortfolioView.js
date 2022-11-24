@@ -3,44 +3,118 @@ import Tag from "../../Component/Tag.js";
 import Comment from "../../Component/Comment.js";
 import MessageMoadalbtn from "../../Component/Message/MessageModalBtn";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useEffect } from "react";
-import { call } from "../../Hook/ApiService";
+import { call, getUserId } from "../../Hook/ApiService";
 import Paser from "html-react-parser"
+import PdfViewer from "../../Component/PdfViewer/PdfViewer";
 
 function PortfolioView(props) {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [tags, setTags] = useState();
+    const [heartCount, setHeartCount] = useState(0);
+    const [alreadyHeart, setAlreadyHeart] = useState(false);
+    const [commentData, setCommentData] = useState([]);
     let {pfid} = useParams();
 
     useEffect(() =>{
         call(`/portfolio/${pfid}`, "GET", null)
         .then((response) =>{
-            setData(response)
+            setData(response)   
             setIsLoading(false);
             console.log(data)
+
+            call(`/comment/list/${pfid}`, "GET", null)
+            .then((response) =>{
+                setCommentData(response.content)
+                console.log(commentData)
+            }).catch((error) => console.log(error))
         }).catch((error) => console.log(error))
     },[])
 
+    useEffect(() => {
+        setHeartCount(data.likes)
+        setAlreadyHeart(data.alreadyLike)
+    },[data])
 
+    const viewType = {
+        "DOCUMENT" : <View content={data.content}/>,
+        "PDF" : <PdfViewer api="/file/pdf/read/" viewId={data.pfId}/>
+    }
+
+    const tagView = (tags) =>{
+        if(tags != null){
+            return(
+                data.tags.split(",").map((tag, idx) =>(
+                    <Tag content={tag}/>
+                ))
+            )
+        }
+    }
+
+    const clickHeart = e =>{
+
+        if(getUserId() == null){
+            alert("로그인이 필요합니다.")
+        }else{
+            if(alreadyHeart){
+                call("/portfolio/likes", "DELETE",{ pfId : data.pfId,
+                                                  userId : getUserId()})
+                .then((response) =>{
+                    setHeartCount(heartCount - 1)
+                })
+            }else{
+                call("/portfolio/likes", "POST",{ pfId : data.pfId,
+                                                  userId : getUserId()
+                                                })
+                .then((response) =>{
+                    setHeartCount(heartCount + 1)
+                })
+            }
+            setAlreadyHeart(!alreadyHeart)
+        }
+    }
+    const commentInput = useRef();
+
+    const submitComment = () =>{
+        const content = commentInput.current;
+
+        if(content.value == null || content.value == "" || content.value  == undefined){
+            alert("코멘트 내용을 입력해 주세요.")
+        }else{
+            call(`/comment/write/${pfid}`, "POST", { "content" : content.value })
+            .then((response) =>{
+                setCommentData([...commentData, response])
+                content.value = '';
+            })
+        }
+    }
+
+    const needLogin = () =>{
+        alert("로그인한 사용자만 코멘트를 작성할 수 있습니다.");
+    }
+
+    const deleteComment = (commentId) =>{
+        call(`/comment/delete/${pfid}/${commentId}`, "DELETE", null)
+        .then(() =>{
+            setCommentData(commentData.filter(comment => comment.id !== commentId))
+        })
+    }
 
     return (
         <div className="ContentContainer">
-            { isLoading ? <h1> 로딩중... </h1> :<>
+            { isLoading ? <h1> 로딩중.... </h1> :<>
             <h2>{data.title}</h2>
             <div className="tagWrapper">
                 {
-                    data.tags.split(",").map((tag, idx) =>(
-                        <Tag content={tag}/>
-                    ))
+                    tagView(data.tags)
                 }
             </div>
             <div className="ContentInfo">
-                <span className="autor">Hong Kill Dong</span>
-                <span className="date">2022.09.28</span>
-                <span className="view">view 123456789</span>
-                <span className="view">like 123456789</span>
+                <span className="autor">{data.userId}</span>
+                <span className="date">{data.modifiedDate.substring(0,10)}</span>
+                <span className="view">view {data.view}</span>
+                <span className="view">like {data.likes}</span>
             </div>
             <div className="summary">
                 {
@@ -49,7 +123,7 @@ function PortfolioView(props) {
             </div>
             <div className="Content">
                 {
-                    Paser(data.content)
+                    viewType[data.type]
                 }
             </div>
             <hr></hr>
@@ -74,24 +148,45 @@ function PortfolioView(props) {
 
             <hr></hr>
             <div className="commentContainer">
+            <h2>Comment</h2>
+                <div className="Comments">
+                 
+                        {
+                            commentData?
+                            <ul style={{paddingLeft: 0 }}>
+                                {
+                                 commentData.map((comment,idx) =>(
+                                    <li key={idx} style={{position : "relative"}}>
+                                        <Comment 
+                                            userId={comment.userId} 
+                                            content={comment.content}
+                                            createDate={comment.createDate}/>
+                                        { comment.written? 
+                                        <div style={{position :"absolute", bottom : 0, right: 10, textAlign : "right"}}>
+                                            <button onClick={() => deleteComment(comment.id)}>삭제</button>
+                                        </div>
+                                        : <></>
+                                        }                
+                                    </li>
+
+                                 ))   
+                                }
+                            </ul> 
+                            :<p>댓글이 없습니다.</p>
+                        }
+               
+                </div>
                 <div className="inputDiv">
                     <textarea
                         className="inputComment"
-                        placeholder="코멘트를 남겨주세요">
+                        placeholder="코멘트를 남겨주세요"
+                        ref={commentInput}
+                        onClick={getUserId() == null? needLogin : null}
+                    >
                     </textarea>
                     <div className="btnDiv">
-                        <button className="btnSubmit" type="button">등록</button>
+                        <button className="btnSubmit" type="button" onClick={submitComment}>등록</button>
                     </div>
-                </div>
-                <div className="Comments">
-                    <ul style={{ paddingLeft: 0 }}>
-                        <li><Comment /></li>
-                        <li><Comment /></li>
-                        <li><Comment /></li>
-                        <li><Comment /></li>
-                        <li><Comment /></li>
-                        <li><Comment /></li>
-                    </ul>
                 </div>
             </div>
 
@@ -100,8 +195,15 @@ function PortfolioView(props) {
                 <MessageMoadalbtn></MessageMoadalbtn>
                 </div>
                 <div>
-                    <button><img src={process.env.PUBLIC_URL + "/img/Heart-icon.png"}></img></button>
-                    <p>213123</p>
+                    <button onClick={clickHeart}>
+                        {
+                            alreadyHeart?  
+                            <img src={process.env.PUBLIC_URL + "/img/Heart-icon.png"}></img>
+                            :<img src={process.env.PUBLIC_URL + "/img/BlackHeart-icon.png"}></img>
+                        }
+
+                    </button>
+                    <p>{heartCount}</p>
                 </div>
             </div>
             </>}
@@ -110,4 +212,13 @@ function PortfolioView(props) {
 }
 
 export default PortfolioView;
+
+
+function View(props){
+    return(
+        <>
+        {Paser(props.content)}
+        </>
+    )
+}
 

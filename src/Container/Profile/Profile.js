@@ -51,6 +51,7 @@ function Profile(props) {
                     <Portfolio></Portfolio>
                     <Portfolio></Portfolio>
                     <Portfolio></Portfolio>
+                    
                 </div>
             </div>
             <div className="UserPost">자유 게시판 글 목록</div>

@@ -1,27 +1,30 @@
 import "./WritePortfolio.css";
-import axios from "axios";
-import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { useState } from "react";
+import { useRef, useState } from "react";
 import InputTag from "../../Component/Editor/InputTag";
 import { call } from "../../Hook/ApiService";
-import Editor from "../../Component/Editor/Editor";
 import { useNavigate } from "react-router-dom";
+import { fileCall } from "../../Hook/FileService";
+import FileUploader from "../../Component/Editor/PdfUploader";
+import ImageUploader from "../../Component/Editor/ImageUploader";
 
 
-
-function WritePortfolio({ props, setDesc, desc, setImage }) {
-    const imgLink = "E:/과제물/3학년 2학기/Protofolio/front/public/"
+function WritePortfolio({ props, setDesc, desc}) {
+    const imgLink = "E:/project/Deview/images"
 
     const [flag, setFlag] = useState(false);
     const [TapStatus, setTapStatus] = useState(0);
-
+    const [image, setImage] = useState([]);
     const [portfolio, setPortfolo] = useState({
         title: '',
         summary: '',
         content: '',
-        tags: ''
+        type : "DOCUMENT",
     })
+
+    const pdfFileUploaderRef = useRef();
+    const imageFileUploaderRef = useRef();
 
     const getValue = e => {
         const { name, value } = e.target;
@@ -41,21 +44,41 @@ function WritePortfolio({ props, setDesc, desc, setImage }) {
     }
 
     const navi = useNavigate();
+
     const sumbitPorfolio = e => {
         console.log(portfolio);
         call("/portfolio/write", "POST", portfolio)
             .then((response) =>{ 
-                console.log(response)
-                navi("/")
+                console.log(response.pfId)
+                const viewId = response.pfId;
+                imageFileUploaderRef.current.fileInfo()
+                imageFileUploaderRef.current.submitFile("/file/image", viewId, "Portfolio");
+                if(TapStatus == 1){
+                    pdfFileUploaderRef.current.fileInfo();
+                    pdfFileUploaderRef.current.submitFile("/file/pdf/upload", viewId);
+                }
+               navi(`/portfolio/${viewId}`)
             }
         )
     }
 
     function changeForm(num) {
-        setPortfolo({
-            ...portfolio,
-            content: ""
-        })
+        console.log(num);
+        if(num === 0){
+            console.log("DocumentReady");
+            setPortfolo({
+                ...portfolio,
+                type : "DOCUMENT"
+            })
+        }else{
+            console.log("PDFReady");
+            setPortfolo({
+                ...portfolio,
+                type : "PDF",
+                content : ""
+            })
+        }
+        setImage([]);
         setTapStatus(num);
     }
     const uploadList = {
@@ -77,16 +100,9 @@ function WritePortfolio({ props, setDesc, desc, setImage }) {
                 })
                 console.log(portfolio)
             }}
-            onBlur={(event, editor) => {
-                console.log('Blur.', editor);
-            }}
-            onFocus={(event, editor) => {
-                console.log('Focus.', editor);
-            }}
+
         />,
-        1: <div className="FileUploadContainer">
-            파일 업로드
-        </div>
+        1: <FileUploader ref={pdfFileUploaderRef}/>
     };
 
     const customUploadAdapter = (loader) => { // (2)
@@ -97,18 +113,18 @@ function WritePortfolio({ props, setDesc, desc, setImage }) {
                     loader.file.then((file) => {
                         data.append("name", file.name);
                         data.append("file", file);
-
-                        // axios.post('/localhost:8080/api/uplode', data)
-                        //     .then((res) => {
-                        //         if (!flag) {
-                        //             setFlag(true);
-                        //             setImage(res.data.filename);
-                        //         }
-                        //         resolve({
-                        //             default: `${imgLink}/${res.data.filename}`
-                        //         });
-                        //     })
-                        //     .catch((err) => reject(err));
+                        fileCall("/file/image", "POST", data)
+                            .then((res) => {
+                                console.log(res);
+                                if (!flag) {
+                                    setFlag(true);
+                                    setImage(res.filename);
+                                }
+                                resolve({
+                                    default: `http://localhost:8080/file/image/${res.filename}`
+                                });
+                            })
+                            .catch((err) => reject(err));
                     })
                 })
             }
@@ -121,6 +137,8 @@ function WritePortfolio({ props, setDesc, desc, setImage }) {
         }
     }
 
+
+    
     return (
         <div className='editorWrapper'>
             <input type="text"
@@ -145,15 +163,16 @@ function WritePortfolio({ props, setDesc, desc, setImage }) {
                 </div>
             </div>
             {uploadList[TapStatus]}
-
-            <div className="FileUploadContainer">
-                썸네일 업로드
+            <div style={{marginTop : "30px"}}>
+            <ImageUploader ref={imageFileUploaderRef}/>
             </div>
+
             <InputTag getTag={getTag}></InputTag>
-            <button className="test" onClick={sumbitPorfolio}>클릭</button>
+            <div className="btnDiv">
+                <button className="btnSubmit" onClick={sumbitPorfolio}>작성하기</button>
+            </div>
         </div>
     )
 }
 
 export default WritePortfolio;
-

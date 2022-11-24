@@ -15,6 +15,9 @@ import WantedJob from './Container/Wanted/WantedJob';
 import WriteWantedJob from './Container/Wanted/WriteWantedJob';
 import ViewWantedJob from './Container/Wanted/ViewWantedJob';
 
+import ApplyListView from './Container/Wanted/ApplyListView';
+import ApplyWrite from './Container/Wanted/ApplyWrite';
+
 
 import Message from './Container/Message/Message';
 
@@ -25,6 +28,7 @@ import TestVeiw from './Container/Portfolio/TestVeiw'
 
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import ApplyView from './Container/Wanted/ApplyView';
 
 
 
@@ -50,7 +54,11 @@ function App() {
         <Route path="/Wanted/dev" element={<WantedDev/>}></Route>
         <Route path="/Wanted/job" element={<WantedJob/>}></Route>
         <Route path="/Wanted/job/Write" element={<WriteWantedJob/>}></Route>
-        <Route path="/Wanted/job/view" element={<ViewWantedJob/>}></Route>
+        <Route path="/Wanted/job/view/:wjid" element={<ViewWantedJob/>}></Route>
+
+        <Route path='/wanted/job/apply/list/:wjid' element={<ApplyListView/>}></Route>
+        <Route path='/wanted/job/apply/view/:apid' element={<ApplyView/>}></Route>
+        <Route path='/wanted/job/apply/write' element={<ApplyWrite/>}></Route>
 
         <Route path="/profile" element={<Profile></Profile>}></Route>
         

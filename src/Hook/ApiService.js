@@ -27,7 +27,6 @@ export async function call(api, method, request){
     }else if(response.status === 403){
       window.location.href ="/login";
     }
-
   }).catch((error) =>{
     console.log("http error");
     console.log(error);
@@ -39,6 +38,8 @@ export function signin(userDTO){
   .then((response) =>{
     if(response.token){
       sessionStorage.setItem("ACCESS_TOKEN", response.token)
+      sessionStorage.setItem("Role", response.role)
+      sessionStorage.setItem("userId", response.userId)
       window.location.href = "/";
     }
   })
@@ -46,9 +47,23 @@ export function signin(userDTO){
 
 export function signout(){
   sessionStorage.removeItem("ACCESS_TOKEN")
+  sessionStorage.removeItem("Role")
+  sessionStorage.removeItem("userId")
   window.location.href = "/";
 }
 
 export function signup(userDTO){
   return call("/user/signup", "POST", userDTO)
+}
+
+export function getUserId(){
+  const userId =sessionStorage.getItem("userId");
+  if(userId !== null || userId !== undefined || userId !== ``)
+    return sessionStorage.getItem("userId");
+}
+
+export function getRole(){
+  const Role =sessionStorage.getItem("Role");
+  if(Role !== null || Role !== undefined || Role !== ``)
+    return Role;
 }

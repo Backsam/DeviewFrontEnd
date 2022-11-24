@@ -41,20 +41,21 @@
 
 
 .Filters{
-    width: 800px;
+    width: 1200px;
     height: 50px;
     display: flex;
-    justify-content: left;
+    justify-content: space-between;
     align-items: center;
     padding-left: 30px;
 }
 
 .FilterMenu{
-    width: 150px;
+    width: 120px;
+    border-bottom: 1px solid black;
 }
 
 .FilterMenu > button{
-    width: 100px;
+    width: 100%;
     height: 40px;
     text-align: left;
 }
@@ -68,11 +69,14 @@
 }
 
 .SearchResult{
-    width: 100%;
+    width: 1200px;
+    min-height: 600px;
+    margin: 0 auto;
     margin-top: 20px;
-    padding-top: 10px;  
+    padding-top: 10px;
+    padding-left: 15px;  
     display: flex;
-    justify-content: space-around;
+    justify-content: left;
     flex-direction: row;
     flex-wrap : wrap;
 }

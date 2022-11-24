@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 
 const InputTag = (props) => {
-  const [tagItem, setTagItem] = useState('')
+  const [tagItem, setTagItem] = useState(null)
   const [tagList, setTagList] = useState([])
 
   const onKeyPress = e => {
@@ -15,7 +15,7 @@ const InputTag = (props) => {
     let updatedTagList = [...tagList]
     updatedTagList.push(tagItem)
     setTagList(updatedTagList)
-    setTagItem('')
+    setTagItem(``)
     props.getTag(updatedTagList)
   }
 
@@ -23,6 +23,7 @@ const InputTag = (props) => {
     const deleteTagItem = e.target.parentElement.firstChild.innerText
     const filteredTagList = tagList.filter(tagItem => tagItem !== deleteTagItem)
     setTagList(filteredTagList)
+    props.getTag(filteredTagList);
   }
 
   return (
@@ -41,9 +42,64 @@ const InputTag = (props) => {
           placeholder='Press enter to add tags'
           tabIndex={2}
           onChange={e => setTagItem(e.target.value)}
-          value={tagItem}
+          value={tagItem || ""}
           onKeyPress={onKeyPress}
+          list ="TechStacks"
         />
+        <datalist id="TechStacks" style={{width : "300px"}}>
+          <option value="Angular"/>
+          <option value="Apache"/>
+          <option value="AWS"/>
+          <option value="C+"/>
+          <option value="C++"/>
+          <option value="C#"/>
+          <option value="Capybara"/>
+          <option value="Chai"/>
+          <option value="CSS"/>
+          <option value="Enzyme"/>
+          <option value="Express.JS"/>
+          <option value="Go"/>
+          <option value="GraphQL"/>
+          <option value="HTML"/>
+          <option value="Java"/>
+          <option value="JavaScript"/>
+          <option value="Jest"/>
+          <option value="Koa"/>
+          <option value="Kotlin"/>
+          <option value="Memcached"/>
+          <option value="MobX"/>
+          <option value="MongoDB"/>
+          <option value="MySQL"/>
+          <option value="Netty"/>
+          <option value="Next.js"/>
+          <option value="Nginx"/>
+          <option value="Node.js"/>
+          <option value="Nuxt.JS"/>
+          <option value="Objective-C"/>
+          <option value="Oracle"/>
+          <option value="PHP"/>
+          <option value="PostgresSQL"/>
+          <option value="PUMA"/>
+          <option value="Python"/>
+          <option value="R"/>
+          <option value="React"/>
+          <option value="Realy"/>
+          <option value="Recoil"/>
+          <option value="Redis"/>
+          <option value="Redux"/>
+          <option value="RspecL"/>
+          <option value="Ruby"/>
+          <option value="Scala"/>
+          <option value="SpirngBoot"/>
+          <option value="Spring"/>
+          <option value="Storybook"/>
+          <option value="Styled-Components"/>
+          <option value="Swift"/>
+          <option value="Thymleaf"/>
+          <option value="TRAILBLAZER"/>
+          <option value="TypeScript"/>
+          <option value="Vue.js"/>
+        </datalist>
       </TagBox>
     </WholeBox>
   )
@@ -58,10 +114,16 @@ const TagBox = styled.div`
   align-items: center;
   flex-wrap: wrap;
   min-height: 50px;
+  max-height : 80px;
   margin: 10px;
   padding: 0 10px;
   border: 1px solid rgba(0, 0, 0, 0.3);
   border-radius: 10px;
+  overflow-y:  scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   &:focus-within {
     border-color: black;
@@ -95,8 +157,8 @@ const Button = styled.button`
 `
 
 const TagInput = styled.input`
-  display: inline-flex;
-  min-width: 150px;
+  display: flex;
+  width : 250px;
   background: transparent;
   border: none;
   outline: none;

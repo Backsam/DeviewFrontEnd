@@ -54,23 +54,6 @@
     font-size: 18px;
 }
 
-.test{
-    width: 50px;
-    height: 45px;
-    margin-top: 10px;
-    float: right;
-    margin-left: 20px;
-    background-color: #444;
-}
-
-.test > button {
-    width: 50px;
-    height: 45px;
-    background-color: #444;
-    color: white;
-    margin: 0 auto;
-    font-size: 10px;
-}
 
 .NavUsersInfo{
     width: 45px;
@@ -82,6 +65,15 @@
     float:right;
     border-radius: 50%;
     position: relative;
+}
+
+.loginBtn{
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    position: absolute;
+    top : 30%;
+    left: 8%;
 }
 
 

@@ -67,8 +67,6 @@ function DevCard(props) {
                 <Link to= "/testView"><Portfolio title="PDF를 업로드한 포트폴리오" summary="내용"></Portfolio></Link>
                 <Link to= "/testView"><Portfolio title="PDF를 업로드한 포트폴리오" summary="내용"></Portfolio></Link>
             </div>
-            
-
          </Modal>
         </>
     )

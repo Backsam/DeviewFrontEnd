@@ -2,12 +2,16 @@ import "./Comment.css"
 
 function Comment(props){
 
+    var originCreateDate =  props.createDate + "";
+    var createDate = originCreateDate.substring(0, 10) +"  "+originCreateDate.substring(11, 19);
+
     return(
         <div className="CommentWarpper" style={{width:"100%", minHeight:"100px"}}>
-            <div className="CommentAutor">댓글 작성자</div>
-            <div className="CommentDetail">댓글 내용 입니다.</div>
+            <div className="CommentAutor">{props.userId}
+            </div>
+            <div className="CommentDetail">{props.content}</div>
             <div className="CommentInfo">
-                <span className="CommentDate">2022-09-28</span>
+                <span className="CommentDate">{createDate}</span>
             </div>
         </div>
     )
