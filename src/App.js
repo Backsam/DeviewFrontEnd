@@ -6,6 +6,8 @@ import Main from "./Container/Main/Main.js";
 
 import PortfolioView from "./Container/Portfolio/PortfolioView.js";
 import WritePortfolio from './Container/Portfolio/WritePortfollio';
+import ModifyPortfolio from './Container/Portfolio/ModifyPortfolio';
+import UserPortfoiloList from './Container/Profile/UserPortfolioList';
 
 import Profile from "./Container/Profile/Profile.js";
 import Search from './Container/Search.js';
@@ -45,7 +47,8 @@ function App() {
         <Route path="/" element={<Main/>}></Route>
 
         <Route path="/portfolio/:pfid" element={<PortfolioView/>}></Route>
-        <Route path="/portfolio/write" element={<WritePortfolio/>}></Route>
+        <Route path="/portfolio/write" element={<WritePortfolio/>}></Route>.
+        <Route path="/portfolio/modify/:pfId" element={<ModifyPortfolio/>}></Route>
 
         <Route path="/search/" element={<Search></Search>}></Route>
         <Route path="/search/?query=keyword" element={<Search></Search>}></Route>
@@ -61,6 +64,7 @@ function App() {
         <Route path='/wanted/job/apply/write' element={<ApplyWrite/>}></Route>
 
         <Route path="/profile" element={<Profile></Profile>}></Route>
+        <Route path="/portfolio/list/:userId" element={<UserPortfoiloList></UserPortfoiloList>}></Route>
         
         <Route path="/Message" element={<Message/>}></Route>
         <Route path="/TestView" element={<TestVeiw/>}></Route>

@@ -7,7 +7,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { call } from "../../Hook/ApiService";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 function ApplyWrite(props) {
@@ -108,10 +108,14 @@ function ApplyWrite(props) {
         })
     }, [portfolio])
 
+    const navi = useNavigate();
     const submit = () => {
         console.log(apply)
         call("/apply/write", "POST", apply)
-            .then((response) => console.log(response))
+            .then((response) => {
+                console.log(response)
+                navi(`/wanted/job/apply/view/${response.id}`)
+            })
             .catch((error) =>
                 console.log(error))
     }
@@ -120,7 +124,7 @@ function ApplyWrite(props) {
     return (
         <div className="applyWriteContainer">
             <h2>{wjTitle}</h2>
-            <hr></hr>
+
             <div className="applyInfoInput">
                 <table>
                     <tbody>
@@ -139,7 +143,7 @@ function ApplyWrite(props) {
                     </tbody>
                 </table>
             </div>
-            <hr></hr>
+
             <div className="introduceMySelf">
                 <h2>Introduce</h2>
                 {
@@ -169,7 +173,7 @@ function ApplyWrite(props) {
                     }
                 </div>
             </div>
-            <hr></hr>
+
             <div className="btnDiv">
                 <button className="btnSubmit" onClick={submit}>제출하기</button>
             </div>

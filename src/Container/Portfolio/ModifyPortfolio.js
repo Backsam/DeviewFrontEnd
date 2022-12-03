@@ -1,30 +1,59 @@
 import "./WritePortfolio.css";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import InputTag from "../../Component/Editor/InputTag";
 import { call } from "../../Hook/ApiService";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { fileCall } from "../../Hook/FileService";
 import FileUploader from "../../Component/Editor/PdfUploader";
 import ImageUploader from "../../Component/Editor/ImageUploader";
 
 
-function WritePortfolio({ props, setDesc, desc}) {
-    const imgLink = "E:/project/Deview/images"
+function WritePortfolio({ props, setDesc, desc }) {
 
+    const [data, setData] = useState([]);
     const [flag, setFlag] = useState(false);
     const [TapStatus, setTapStatus] = useState(0);
     const [image, setImage] = useState([]);
-    const [portfolio, setPortfolo] = useState({
-        title: '',
-        summary: '',
-        content: '',
-        type : "DOCUMENT",
-    })
+    const [portfolio, setPortfolo] = useState({})
+    const [isLoading, setIsLoading] = useState(true);
 
     const pdfFileUploaderRef = useRef();
     const imageFileUploaderRef = useRef();
+
+    let { pfId } = useParams();
+
+    useEffect(() => {
+        setIsLoading(true);
+        call(`/portfolio/${pfId}`, "GET", null)
+            .then((res) => {
+                setData(data => res);
+                if (res.type === "DOCUMENT") {
+                    setTapStatus(0);
+                } else {
+                    setTapStatus(1);
+                }
+            })
+        setIsLoading(false);
+    }, [pfId])
+
+    useEffect(() => {
+        setPortfolo(portfolio => ({
+            pfId : pfId,
+            title: data.title,
+            summary: data.summary,
+            content: data.content,
+            type: data.type,
+            tags: data.tags
+        }))
+    }, [data])
+
+    useState(() => {
+        console.log(data);
+        console.log(portfolio);
+    }, [data, portfolio])
+
 
     const getValue = e => {
         const { name, value } = e.target;
@@ -47,35 +76,36 @@ function WritePortfolio({ props, setDesc, desc}) {
 
     const sumbitPorfolio = e => {
         console.log(portfolio);
-        call("/portfolio/write", "POST", portfolio)
-            .then((response) =>{ 
+        call("/portfolio/update", "PUT", portfolio)
+            .then((response) => {
                 console.log(response.pfId)
                 const viewId = response.pfId;
                 imageFileUploaderRef.current.fileInfo()
-                imageFileUploaderRef.current.submitFile("/newfile/thumbnail", "POST", viewId, "Portfolio");
-                if(TapStatus == 1){
+                imageFileUploaderRef.current.submitFile("/newfile/thumbnail", "PUT", viewId, "Portfolio");
+                if (TapStatus == 1) {
                     pdfFileUploaderRef.current.fileInfo();
-                    pdfFileUploaderRef.current.submitFile("/newfile/pdf", "POST" , viewId);
+                    pdfFileUploaderRef.current.submitFile("/newfile/pdf", "PUT", viewId);
                 }
-               navi(`/portfolio/${viewId}`)
+
+                navi(`/portfolio/${response.pfId}`)
             }
-        )
+            )
     }
 
     function changeForm(num) {
         console.log(num);
-        if(num === 0){
+        if (num === 0) {
             console.log("DocumentReady");
             setPortfolo({
                 ...portfolio,
-                type : "DOCUMENT"
+                type: "DOCUMENT"
             })
-        }else{
+        } else {
             console.log("PDFReady");
             setPortfolo({
                 ...portfolio,
-                type : "PDF",
-                content : ""
+                type: "PDF",
+                content: ""
             })
         }
         setImage([]);
@@ -87,7 +117,7 @@ function WritePortfolio({ props, setDesc, desc}) {
             config={{
                 extraPlugins: [uploadPlugin]
             }}
-            data=""
+            data={data.content}
             onReady={editor => {
                 // You can store the "editor" and use when it is needed.
                 console.log('Editor is ready to use!', editor);
@@ -102,7 +132,7 @@ function WritePortfolio({ props, setDesc, desc}) {
             }}
 
         />,
-        1: <FileUploader ref={pdfFileUploaderRef}/>
+        1: <FileUploader getFile={data.pfId} ref={pdfFileUploaderRef} />
     };
 
     const customUploadAdapter = (loader) => { // (2)
@@ -138,40 +168,47 @@ function WritePortfolio({ props, setDesc, desc}) {
     }
 
 
-    
+
     return (
         <div className='editorWrapper'>
-            <input type="text"
-                id="inputPortfolioTitle"
-                name="title"
-                placeholder="제목을 입력하세요"
-                onChange={getValue}
-            ></input>
+            {isLoading ? <div>로딩중</div>
+                : <> <input type="text"
+                    id="inputPortfolioTitle"
+                    name="title"
+                    defaultValue={data.title}
+                    placeholder="제목을 입력하세요"
+                    onChange={getValue}
+                ></input>
 
-            <textarea type="text"
-                id="inputPortfolioSummary"
-                name="summary"
-                placeholder="개요를 입력하세요"
-                onChange={getValue}
-            ></textarea>
-            <div className="orderContainer">
-                <div className="orderList">
-                    <ul>
-                        <li><button className={TapStatus === 0 ? "is-active" : ""} type="button" onClick={() => changeForm(0)}>WriteDocument</button></li>
-                        <li><button className={TapStatus === 1 ? "is-active" : ""} type="button" onClick={() => changeForm(1)}>UploadPDF</button></li>
-                    </ul>
-                </div>
-            </div>
-            {uploadList[TapStatus]}
-            <div style={{marginTop : "30px"}}>
-            <ImageUploader ref={imageFileUploaderRef}/>
-            </div>
+                    <textarea type="text"
+                        id="inputPortfolioSummary"
+                        name="summary"
+                        defaultValue={data.summary}
+                        placeholder="개요를 입력하세요"
+                        onChange={getValue}
+                    ></textarea>
+                    <div className="orderContainer">
+                        <div className="orderList">
+                            <ul>
+                                <li><button className={TapStatus === 0 ? "is-active" : ""} type="button" onClick={() => changeForm(0)}>WriteDocument</button></li>
+                                <li><button className={TapStatus === 1 ? "is-active" : ""} type="button" onClick={() => changeForm(1)}>UploadPDF</button></li>
+                            </ul>
+                        </div>
+                    </div>
+                    {uploadList[TapStatus]}
+                    <div style={{ marginTop: "30px" }}>
+                        <ImageUploader getFile={pfId} ref={imageFileUploaderRef} />
+                    </div>
 
-            <InputTag getTag={getTag}></InputTag>
-            <div className="btnDiv">
-                <button className="btnSubmit" onClick={sumbitPorfolio}>작성하기</button>
-            </div>
+                    <InputTag getTag={getTag} setTag={data.tags}></InputTag>
+                    <div className="btnDiv">
+                        <button className="btnSubmit" onClick={sumbitPorfolio}>작성하기</button>
+                    </div></>
+
+            }
+
         </div>
+
     )
 }
 

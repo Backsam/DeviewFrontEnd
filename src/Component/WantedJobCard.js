@@ -3,7 +3,7 @@ import "./Portfolio.css"
 import Tag from "./Tag";
 
 
-function Portfolio(props) {
+function WantedJobCard(props) {
 
     const onErrorImg = (e) => {
         e.target.src = process.env.PUBLIC_URL + "/img/non-image.png";
@@ -17,7 +17,7 @@ function Portfolio(props) {
     return (
         <div className="portfolio_container">
             <div className="thumnail-box">
-                <img className="thumnail"  src={`http://localhost:8080/newfile/thumbnail/${props.viewId}`} alt="non-image" onError={onErrorImg}></img>
+                <img className="thumnail"  src={`http://localhost:8080/wantedjobfile/thumbnail/${props.viewId}`} alt="non-image" onError={onErrorImg}></img>
             </div>
             <div className="content-box">
                 <div className="portfolio_title">
@@ -44,5 +44,5 @@ function Portfolio(props) {
     )
 }
 
-export default Portfolio;
+export default WantedJobCard;
 

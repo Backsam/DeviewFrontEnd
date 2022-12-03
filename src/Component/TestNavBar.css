@@ -90,6 +90,14 @@
     border-radius: 50%;
 }
 
+.NavUsersInfo .userId{
+    height: 50px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
 
 

@@ -1,10 +1,9 @@
 import "./WantedJob.css"
 import { Link } from "react-router-dom";
-
-import Portfolio from "../../Component/Portfolio";
 import { useState } from "react";
 import { useEffect } from "react";
 import { call } from "../../Hook/ApiService";
+import WantedJobCard from "../../Component/WantedJobCard";
 
 function WantedJob(props) {
 
@@ -36,7 +35,7 @@ function WantedJob(props) {
                 <br></br>
                 <h5>Deview 구직 서비스 </h5>
                 <br></br>
-                <h5>자신이 업로드한 포트폴리오와 함께 간단하게 구직해보세요!</h5>
+                <h5>자신이 업로드한 포트폴리오와 함께 간단하게 이력서를 작성해보세요!</h5>
                 <img src={process.env.PUBLIC_URL + '/img/ipsa.png'}></img>
             </div>
             <hr></hr>
@@ -44,7 +43,7 @@ function WantedJob(props) {
                 {
                     data.map((wj, idx) => (
                         <Link to={`view/${wj.wjId}`} style={{ color: "black", textDecoration: "none" }}>
-                            <Portfolio 
+                            <WantedJobCard 
                             Key={idx} 
                             boardType="WantedJob" 
                             viewId={wj.wjId} 
@@ -55,7 +54,7 @@ function WantedJob(props) {
                             like={wj.like} 
                             view={wj.view}
                             createDate={wj.modifiedDate}
-                            ></Portfolio>
+                            ></WantedJobCard>
                         </Link>
                     ))
                 }

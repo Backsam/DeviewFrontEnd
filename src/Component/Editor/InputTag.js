@@ -1,9 +1,23 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
 const InputTag = (props) => {
   const [tagItem, setTagItem] = useState(null)
   const [tagList, setTagList] = useState([])
+
+  useEffect(() =>{
+    if(props.setTag != null && props.setTag.length != 0){
+      console.log(props.setTag);
+      var setTag = props.setTag.split(",")
+      let updatedTagList = [...tagList]
+      setTag.forEach(element => {
+        updatedTagList.push(element)
+      })
+      setTagList(updatedTagList);
+    }else{
+      console.log("태그 없음")
+    }
+  },[props.setTag])
 
   const onKeyPress = e => {
     if (e.target.value.length !== 0 && e.key === 'Enter') {

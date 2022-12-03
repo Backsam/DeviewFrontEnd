@@ -9,7 +9,7 @@ function SimplePortfolio(props) {
     return (
         <CardWrapper width={props.width} height={props.height}>
             <ImgWrapper  width={props.width} height={props.height}>
-                <img src={`http://localhost:8080/file/image/Portfolio${props.pfId}_thumbnail`} alt="non-image" onError={onErrorImg}></img>
+                <img src={`http://localhost:8080/newfile/thumbnail/${props.pfId}`} alt="non-image" onError={onErrorImg}></img>
             </ImgWrapper>
             <Text>{props.title}</Text>
         </CardWrapper>

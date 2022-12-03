@@ -127,15 +127,17 @@ function TestNavBar() {
                         </button>
                             <Dropdown visivility={userMenuVisibility} userMenu>
                                 <ul>
-                                    <div>{getUserId()}</div>
-                                    <Link to="/profile"><li>내 프로필</li></Link>
+                                    <div className="userId">{getUserId()}</div>
+                                    <hr></hr>
+                                    <Link style={{color: "black"}} to={`/profile?userId=${getUserId()}`}><li>내 프로필</li></Link>
                                     {
                                         sessionStorage.getItem("Role") == "DEVELOPER" ?  
-                                        <Link to="/portfolio/write"><li>포트폴리오 작성</li></Link>
-                                        :<Link to="/Wanted/job/Write"><li>구인 공고 작성</li></Link>
+                                        <Link style={{color: "black"}} to="/portfolio/write"><li>포트폴리오 작성</li></Link>
+                                        :<Link style={{color: "black"}} to="/Wanted/job/Write"><li>구인 공고 작성</li></Link>
                                     }
                                    
                                     {/* <Link to="/Message"><li>쪽지함</li></Link> */}
+                                    <hr></hr>
                                     <li> <button onClick={signout}>로그아웃</button></li>
                                 </ul>
                             </Dropdown></> :

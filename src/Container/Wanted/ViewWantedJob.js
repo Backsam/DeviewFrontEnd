@@ -4,15 +4,17 @@ import ListApplyModal from "../../Component/ListApply/ListApplyModal";
 import PdfViewer from "../../Component/PdfViewer/PdfViewer";
 import Paser from "html-react-parser"
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { call, getRole } from "../../Hook/ApiService";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { call, getRole, getUserId } from "../../Hook/ApiService";
 import userEvent from "@testing-library/user-event";
+import Dialog from "../../Component/Message/Dialog";
 
 
 function ViewWantedJob(props) {
 
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [dialog, setDialog] = useState(false);
     let { wjid } = useParams();
 
     useEffect(() => {
@@ -26,12 +28,31 @@ function ViewWantedJob(props) {
 
     const viewType = {
         "DOCUMENT": <View content={data.content} />,
-        "PDF": <PdfViewer api="/file/wanted/job/pdf/read/" viewId={data.wjId} />
+        "PDF": <PdfViewer api="/wantedjobfile/pdf/" viewId={data.wjId} />
     }
 
     const Role = getRole();
 
+    const navi = useNavigate();
+    const modifyWantedJob = () => {
+        console.log("수정")
+        navi(`/portfolio/modify/${wjid}`)
+    }
 
+    const deleteConfirm = () => {
+        console.log("삭제")
+        call("/portfolio", "DELETE", { pfId: data.pfId })
+            .then(() => {
+                alert(data.wjId + "번 구인공고가 삭제 되었습니다.")
+                navi('/')
+            }
+            )
+        setDialog(false)
+    }
+
+    const deleteCancle = () => {
+        setDialog(false)
+    }
 
     return (
         <div className="ContentContainer">
@@ -48,6 +69,26 @@ function ViewWantedJob(props) {
                     <span className="autor">{data.userId}</span>
                     <span className="date">{data.modifiedDate.substring(0, 10)}</span>
                     <span className="view">view {data.view}</span>
+                    <div className="ModifyAndDeleteBtn">
+                        {
+                            data.userId === getUserId() ?
+                                <>
+                                    <button onClick={modifyWantedJob}>수정</button>
+                                    <button onClick={() => setDialog(true)}>삭제</button>
+                                    <Dialog
+                                        title="구인공고 삭제"
+                                        confirmText={"확인"}
+                                        cancelText={"취소"}
+                                        onConfirm={deleteConfirm}
+                                        onCancel={deleteCancle}
+                                        open={dialog}
+                                    >
+                                        구인공고를 정말 삭제할까요?
+                                    </Dialog>
+                                </> : null
+
+                        }
+                    </div>
                 </div>
                 <div className="ConditionInfoWrapper">
                     <div className="recruitmentConditionWrapper">

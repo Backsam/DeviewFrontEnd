@@ -30,6 +30,24 @@
     border-right: 1px solid black;
   }
 
+  .ModifyAndDeleteBtn{
+    float: right;
+  }
+
+  .ModifyAndDeleteBtn > button{
+    width: 70px;
+    height: 40px;
+    background-color: black;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 30px;
+  }
+
+  .ModifyAndDeleteBtn > button:not(:last-child){
+    margin-right: 10px;
+  }
+
   .summary{
     width: 100%;
     margin-top: 30px;

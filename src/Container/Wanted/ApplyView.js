@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import SimplePortfolio from "../../Component/Portfolio/SimplePortfolio";
 import { call } from "../../Hook/ApiService";
+import "./ApplyView.css"
 
 
 function ApplyView(props) {
@@ -35,10 +36,7 @@ function ApplyView(props) {
                                 <img src={process.env.PUBLIC_URL + "/img/letsPlay-icon.png"} alt=""></img>
                             </div>
                             <div className="AutorProfile">
-                                <h5>작성자</h5>
-                                <span>포트폴리오 8</span>
-                                <span>총 좋아요 8</span>
-                                <span>총 조회수 8</span>
+                                <h5>{data.userId}</h5>
                                 <div className="AutorLinks">
                                     <button><img src={process.env.PUBLIC_URL + "/img/github-icon.png"} alt=""></img></button>
                                     <button><img src={process.env.PUBLIC_URL + "/img/blog-icon.png"} alt=""></img></button>

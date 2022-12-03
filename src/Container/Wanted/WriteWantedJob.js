@@ -139,13 +139,13 @@ function WriteWantedJob(props) {
                 console.log(response.wjId)
                 const viewId = response.wjId;
                 imageFileUploaderRef.current.fileInfo()
-                imageFileUploaderRef.current.submitFile("/file/image", viewId, "WantedJob");
+                imageFileUploaderRef.current.submitFile("/wantedjobfile/thumbnail", "POST", viewId, "WantedJob");
                 if(TapStatus === 1){
                     pdfFileUploaderRef.current.fileInfo();
                     const viewId = response.wjId;
-                    pdfFileUploaderRef.current.submitFile("/file/wanted/job/pdf/upload", viewId);
+                    pdfFileUploaderRef.current.submitFile("/wantedjobfile/pdf", "POST", viewId);
                 }
-                navi(`/wanted/job/view/${viewId}`)
+                // navi(`/wanted/job/view/${viewId}`)
 
             }
         )
