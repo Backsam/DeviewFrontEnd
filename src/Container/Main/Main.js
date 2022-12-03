@@ -4,6 +4,7 @@ import Portfolio from "../../Component/Portfolio.js";
 import { Link } from 'react-router-dom';
 import { call } from "../../Hook/ApiService";
 import SimplePorffolio from "../../Component/Portfolio/SimplePortfolio";
+import { useInView } from "react-intersection-observer";
 
 
 
@@ -12,17 +13,30 @@ function Main() {
     // 데이터 및 페이지 렌더 관련 // 
     const [num, setNum] = useState(0);
     const [data, setData] = useState([]);
-    const [page, setPage] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
+    const [totalPage, setTotalPage] = useState(0);
+    const [page, setPage] = useState(0);
+    const [hasNextPage, setHasNextPage] = useState(false);
+    const [sortBy, setSortBy] = useState("pfId")
+    var sort = "desc"
+    var size = 6;
 
-    useEffect(() => {
-        call("/portfolio/list?sort=pfId,desc", "GET", null)
+    const fetchData = async () => {
+        await call(`/portfolio/list?page=${page}&size=${size}&sort=${sortBy},desc`, "GET", null)
             .then((response) => {
-                setData(response.content)
+                setData((data) => data.concat(response.content))
+                setTotalPage((totalPage) => totalPage + response.totalPages);
+                setPage((page) => page + 1)
+                setHasNextPage(totalPage >= page);
+
                 setIsLoading(false)
             })
             .catch((error) => console.log(error))
-    }, []);
+    }
+
+    useEffect(() => {
+        fetchData(sortBy, sort);
+    }, [sortBy, sort]);
 
 
 
@@ -54,7 +68,7 @@ function Main() {
                 console.log(error)
                 setCarouselLoading(true);
             })
-    }, [CarouselData])
+    }, [])
 
 
     //첫 렌더링(페이지 방문)시 Carosel 크기 지정
@@ -120,12 +134,9 @@ function Main() {
     /*생성 순 정렬 handler*/
     function dateSort() {
         setIsLoading(true)
-        call("/portfolio/list?sort=pfId,desc", "GET", null)
-            .then((response) => {
-                setData(response.content)
-                setIsLoading(false)
-            })
-            .catch((error) => console.log(error))
+        setPage((page) => 0);
+        setData(() => []);
+        setSortBy("pfId")
         setNum(0);
     }
 
@@ -133,12 +144,9 @@ function Main() {
     /*조회순 정렬 handler*/
     function viewSort() {
         setIsLoading(true)
-        call("/portfolio/list?sort=view,desc", "GET", null)
-            .then((response) => {
-                setData(response.content)
-                setIsLoading(false)
-            })
-            .catch((error) => console.log(error))
+        setPage((page) => 0);
+        setData(() => []);
+        setSortBy("view")
         setNum(1);
     }
 
@@ -146,14 +154,19 @@ function Main() {
     /*좋아요 순 정렬 handler*/
     function likeSort() {
         setIsLoading(true)
-        call("/portfolio/list?sort=likeCount,desc", "GET", null)
-            .then((response) => {
-                setData(response.content)
-                setIsLoading(false)
-            })
-            .catch((error) => console.log(error))
+        setPage((page) => 0);
+        setData(() => []);
+        setSortBy("likeCount")
         setNum(2);
     }
+
+    const [ref, inView] = useInView();
+
+    useEffect(() =>{
+        if(inView && hasNextPage){
+            fetchData()
+        }
+    },[fetchData, hasNextPage, inView])
 
 
     return (
@@ -161,7 +174,7 @@ function Main() {
             <div className="LabelWrapper">
 
                 <hr></hr>
-                <label>Hot Deview</label>
+                <label className="CarouselTitle">Hot Deview</label>
             </div>
 
             <div className="CarouselContainer">
@@ -223,6 +236,8 @@ function Main() {
                                 </Link>
                             ))
                         }
+                        <div ref={ref}>
+                        </div>
                     </div>
             }
 
