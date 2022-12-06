@@ -82,10 +82,13 @@ function WritePortfolio({ props, setDesc, desc}) {
         setTapStatus(num);
     }
     const uploadList = {
-        0: <CKEditor
+        0: 
+        
+        
+        <CKEditor
             editor={ClassicEditor}
             config={{
-                extraPlugins: [uploadPlugin]
+                extraPlugins: [uploadPlugin],
             }}
             data=""
             onReady={editor => {

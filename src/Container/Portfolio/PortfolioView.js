@@ -10,6 +10,8 @@ import Paser from "html-react-parser"
 import PdfViewer from "../../Component/PdfViewer/PdfViewer";
 import Dialog from "../../Component/Message/Dialog";
 
+import "./View.css"
+
 function PortfolioView(props) {
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -262,9 +264,9 @@ export default PortfolioView;
 
 function View(props) {
     return (
-        <>
+        <div className="ck-content">
             {Paser(props.content)}
-        </>
+        </div>
     )
 }
 
